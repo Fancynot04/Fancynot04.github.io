@@ -200,7 +200,7 @@
     <div class="head-info">
       <span class="post-info-item"><i class="iconfont iconcalendar"></i>June 30, 2023</span>
       
-      <span class="post-info-item"><i class="iconfont iconfont-size"></i>938</span>
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1180</span>
     </div>
   </div>
 </section>
@@ -208,7 +208,7 @@
       <section class="content">
         
         <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><h3 id="Install-environment"><a href="#Install-environment" class="headerlink" title="Install environment"></a>Install environment</h3><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">node.<span class="hljs-keyword">js </span>git <br></code></pre></td></tr></table></figure>
+<h2 id="一、快速开始"><a href="#一、快速开始" class="headerlink" title="一、快速开始"></a>一、快速开始</h2><h3 id="Install-environment"><a href="#Install-environment" class="headerlink" title="Install environment"></a>Install environment</h3><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">node.<span class="hljs-keyword">js </span>git <br></code></pre></td></tr></table></figure>
 
 <h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Article&quot;</span><br>$ hexo clean <br>$ hexo generate<br>$ hexo s<br></code></pre></td></tr></table></figure>
 
@@ -219,6 +219,20 @@
 <h3 id="Deploy-to-remote-sites-【github】"><a href="#Deploy-to-remote-sites-【github】" class="headerlink" title="Deploy to remote sites 【github】"></a>Deploy to remote sites 【github】</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># blog目录下安装git部署插件</span><br>$ cnpm install --save hexo-deployer-git<br><span class="hljs-comment"># 配置_config.yml中的deploy属性（github中先创建仓库）</span><br>$ vim _config.yml<br><span class="hljs-comment"># The changes are as follows</span><br>deploy:<br>  <span class="hljs-built_in">type</span>: git<br>  repo: https://github.com/Fancynot04/Fancynot04.github.io.git<br>  branch: master<br><span class="hljs-comment"># 配置账号</span><br>$ git config –global user.name yourname<br>$ git config –global user.email yourname@mail.com<br><span class="hljs-comment"># 生成ssh登录秘钥</span><br>$ ssh-keygen -t rsa -C [yourname@mail.com]<br><span class="hljs-comment"># 把生成的id_rsa.pub文件中内容复制到github上对应仓库的公共key中</span><br><span class="hljs-comment"># 部署到远端</span><br>$ hexo deploy<br></code></pre></td></tr></table></figure>
 
 <h3 id="Enable-additional-ports"><a href="#Enable-additional-ports" class="headerlink" title="Enable additional ports"></a>Enable additional ports</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo p [port]<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="二、复杂配置"><a href="#二、复杂配置" class="headerlink" title="二、复杂配置"></a>二、复杂配置</h2><ol>
+<li>图片插入问题</li>
+<li>文章的浏览量</li>
+<li>评论系统</li>
+<li>logo制作</li>
+</ol>
+<h2 id="三、问题汇总"><a href="#三、问题汇总" class="headerlink" title="三、问题汇总"></a>三、问题汇总</h2><h3 id="Unable-to-access-‘http…’"><a href="#Unable-to-access-‘http…’" class="headerlink" title="Unable to access ‘http…’"></a>Unable to access ‘http…’</h3><p>原因： git在拉取或提交项目时，中间会有git的http和https代理，但本地环境本身就有SSL协议，所以取消掉git本身的http、https代理，使用本机的代理。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ git config --global --<span class="hljs-built_in">unset</span> http.proxy<br>$ git config --global --<span class="hljs-built_in">unset</span> https.proxy<br></code></pre></td></tr></table></figure>
+
+
+
 
       </section>
       <section class="extra">
@@ -259,7 +273,7 @@
           
   <aside class="toc-wrap">
     <h3 class="toc-title">文章目录：</h3>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B"><span class="toc-text">快速开始</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Install-environment"><span class="toc-text">Install environment</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites-%E3%80%90github%E3%80%91"><span class="toc-text">Deploy to remote sites 【github】</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Enable-additional-ports"><span class="toc-text">Enable additional ports</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B"><span class="toc-text">一、快速开始</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Install-environment"><span class="toc-text">Install environment</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites-%E3%80%90github%E3%80%91"><span class="toc-text">Deploy to remote sites 【github】</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Enable-additional-ports"><span class="toc-text">Enable additional ports</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%A4%8D%E6%9D%82%E9%85%8D%E7%BD%AE"><span class="toc-text">二、复杂配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB"><span class="toc-text">三、问题汇总</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Unable-to-access-%E2%80%98http%E2%80%A6%E2%80%99"><span class="toc-text">Unable to access ‘http…’</span></a></li></ol></li></ol>
   </aside>
 
         

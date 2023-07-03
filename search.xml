@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Hexo博客搭建过程【修改版】</title>
+    <url>/2023/06/30/Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="一、快速开始"><a href="#一、快速开始" class="headerlink" title="一、快速开始"></a>一、快速开始</h2><h3 id="Install-environment"><a href="#Install-environment" class="headerlink" title="Install environment"></a>Install environment</h3><figure class="highlight mipsasm"><table><tr><td class="code"><pre><code class="hljs mipsasm">node.<span class="hljs-keyword">js </span>git <br></code></pre></td></tr></table></figure>
+
+<h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Article&quot;</span><br>$ hexo clean <br>$ hexo generate<br>$ hexo s<br></code></pre></td></tr></table></figure>
+
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure>
+
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure>
+
+<h3 id="Deploy-to-remote-sites-【github】"><a href="#Deploy-to-remote-sites-【github】" class="headerlink" title="Deploy to remote sites 【github】"></a>Deploy to remote sites 【github】</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># blog目录下安装git部署插件</span><br>$ cnpm install --save hexo-deployer-git<br><span class="hljs-comment"># 配置_config.yml中的deploy属性（github中先创建仓库）</span><br>$ vim _config.yml<br><span class="hljs-comment"># The changes are as follows</span><br>deploy:<br>  <span class="hljs-built_in">type</span>: git<br>  repo: https://github.com/Fancynot04/Fancynot04.github.io.git<br>  branch: master<br><span class="hljs-comment"># 配置账号</span><br>$ git config –global user.name yourname<br>$ git config –global user.email yourname@mail.com<br><span class="hljs-comment"># 生成ssh登录秘钥</span><br>$ ssh-keygen -t rsa -C [yourname@mail.com]<br><span class="hljs-comment"># 把生成的id_rsa.pub文件中内容复制到github上对应仓库的公共key中</span><br><span class="hljs-comment"># 部署到远端</span><br>$ hexo deploy<br></code></pre></td></tr></table></figure>
+
+<h3 id="Enable-additional-ports"><a href="#Enable-additional-ports" class="headerlink" title="Enable additional ports"></a>Enable additional ports</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo p [port]<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="二、复杂配置"><a href="#二、复杂配置" class="headerlink" title="二、复杂配置"></a>二、复杂配置</h2><ol>
+<li><p>图片插入问题</p>
+<h2 id="GitHub"><a href="#GitHub" class="headerlink" title="GitHub"></a>GitHub</h2><p>GitHub 一直拥有各种奇怪的用途，被发掘出来当图床也见怪不怪了。</p>
+<ul>
+<li>速度：国内可以接受，海外速度很快</li>
+<li>CDN：Fastly CDN，几个节点在国内都解禁了的</li>
+<li>HTTPS：支持（似乎不支持 HTTP2）</li>
+<li>域名：<code>user-images.githubusercontent.com</code></li>
+</ul>
+<p>上传方式是新建一个 Repo，然后在 Issue 中传图（直接将图片拖动到 issue 输入框即可），GitHub 会将你的图片分发到 GitHub 用的 CDN 中。</p>
+<p>这和使用 GitHub Raw 需要 GitHub 的服务器动态生成文件不同，user-image 这个子域名是 GitHub 专门为静态文件准备的，不会让当年某某抢票助手 CC GitHub 的事情重现的。<br>当然，这个接口不是公开的。善待 GitHub。</p>
+<p><em>有道云笔记和微博</em></p>
+</li>
+<li><p>文章的浏览量</p>
+</li>
+<li><p>评论系统</p>
+</li>
+<li><p>logo制作</p>
+</li>
+</ol>
+<h2 id="三、问题汇总"><a href="#三、问题汇总" class="headerlink" title="三、问题汇总"></a>三、问题汇总</h2><h3 id="Unable-to-access-‘http…’"><a href="#Unable-to-access-‘http…’" class="headerlink" title="Unable to access ‘http…’"></a>Unable to access ‘http…’</h3><p>原因： git在拉取或提交项目时，中间会有git的http和https代理，但本地环境本身就有SSL协议，所以取消掉git本身的http、https代理，使用本机的代理。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ git config --global --<span class="hljs-built_in">unset</span> http.proxy<br>$ git config --global --<span class="hljs-built_in">unset</span> https.proxy<br></code></pre></td></tr></table></figure>
+
+
+
+]]></content>
+  </entry>
+  <entry>
+    <title>Leecode刷题笔记</title>
+    <url>/2023/06/30/Leecode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<blockquote>
+<p>按照leecode网站上的做题顺序做到第五题时，发现目前的算法理论基础太差了，对解析中的动态规划思想、边界条件判断都存在不理解的情况，所以本文目前暂时停止更新!在学习完《图解算法数据结构》后随缘更新。。。</p>
+</blockquote>
+<p>常见数据结构：可分为线性和非线性数据结构，具体如下，</p>
+<p><em>数组、链表、栈、队列、树、图、散列表、堆</em></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 列表反转</span><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">reverseList</span><span class="hljs-params">(<span class="hljs-type">int</span>[] list)</span>&#123;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">len</span> <span class="hljs-operator">=</span> list.length;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;len/<span class="hljs-number">2</span>;i++)&#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">temp</span> <span class="hljs-operator">=</span> list[i];<br>        list[i] = list[len-i-<span class="hljs-number">1</span>];<br>        list[len-i-<span class="hljs-number">1</span>] = temp;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="1-两数之和"><a href="#1-两数之和" class="headerlink" title="1.两数之和"></a>1.两数之和</h3><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span>[] twoSum(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> target) &#123;<br>        Map&lt;Integer,Integer&gt; map = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>        <span class="hljs-type">int</span> <span class="hljs-variable">len</span> <span class="hljs-operator">=</span> nums.length;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>; i&lt;len; i++)&#123;<br>            <span class="hljs-keyword">if</span>(map.containsKey(target-nums[i]))<br>                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[] &#123;map.get(target-nums[i]),i&#125;;<br>            map.put(nums[i],i);<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;<span class="hljs-number">0</span>&#125;;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-两数相加"><a href="#2-两数相加" class="headerlink" title="2.两数相加"></a>2.两数相加</h3><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Definition for singly-linked list.</span><br><span class="hljs-comment"> * public class ListNode &#123;</span><br><span class="hljs-comment"> *     int val;</span><br><span class="hljs-comment"> *     ListNode next;</span><br><span class="hljs-comment"> *     ListNode() &#123;&#125;</span><br><span class="hljs-comment"> *     ListNode(int val) &#123; this.val = val; &#125;</span><br><span class="hljs-comment"> *     ListNode(int val, ListNode next) &#123; this.val = val; this.next = next; &#125;</span><br><span class="hljs-comment"> * &#125;</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> ListNode <span class="hljs-title function_">addTwoNumbers</span><span class="hljs-params">(ListNode l1, ListNode l2)</span> &#123;<br>        <span class="hljs-comment">/*</span><br><span class="hljs-comment">            两个链表从末尾开始相加，需要考虑进位（内部、最高位）、相加结束条件 </span><br><span class="hljs-comment">        */</span><br>        <span class="hljs-type">ListNode</span> <span class="hljs-variable">prev</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ListNode</span>(<span class="hljs-number">0</span>); <span class="hljs-comment">// 存放相加结果,此为头节点，不存值！</span><br>        <span class="hljs-type">ListNode</span> <span class="hljs-variable">cur</span> <span class="hljs-operator">=</span> prev; <span class="hljs-comment">// 指针移动</span><br>        <span class="hljs-type">int</span> <span class="hljs-variable">carry</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; <span class="hljs-comment">// 进位</span><br>        <span class="hljs-keyword">while</span>(l1!=<span class="hljs-literal">null</span> || l2!=<span class="hljs-literal">null</span>)&#123;<br>            <span class="hljs-comment">//链表当前位数值取决于是否移动指针为空，空则代表两加数位数不同，高位不够的取0</span><br>            <span class="hljs-type">int</span> <span class="hljs-variable">x</span> <span class="hljs-operator">=</span> l1 != <span class="hljs-literal">null</span> ? l1.val:<span class="hljs-number">0</span>;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">y</span> <span class="hljs-operator">=</span> l2 != <span class="hljs-literal">null</span> ? l2.val:<span class="hljs-number">0</span>;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">sum</span> <span class="hljs-operator">=</span> (x+y+carry)%<span class="hljs-number">10</span>; <span class="hljs-comment">//如果结果大于10则只取个位数</span><br>            <span class="hljs-comment">//是否有进位</span><br>            <span class="hljs-comment">/*</span><br><span class="hljs-comment">            if((x+y+carry)/10 != 0) </span><br><span class="hljs-comment">                carry=1;</span><br><span class="hljs-comment">            else </span><br><span class="hljs-comment">                carry=0;</span><br><span class="hljs-comment">             */</span><br>             carry = (x+y+carry)/<span class="hljs-number">10</span>!=<span class="hljs-number">0</span> ? <span class="hljs-number">1</span>:<span class="hljs-number">0</span>;<br>            <span class="hljs-comment">// 仅当指针不为空时才后移</span><br>            <span class="hljs-keyword">if</span>(l1!=<span class="hljs-literal">null</span>) l1= l1.next;<br>            <span class="hljs-keyword">if</span>(l2!=<span class="hljs-literal">null</span>) l2= l2.next;<br>            <span class="hljs-comment">// 创建结点同时与cur连接？！</span><br>            cur.next = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ListNode</span>(sum);<br>            cur = cur.next;<br>        &#125;<br>        <span class="hljs-comment">//处理最高位进位</span><br>        <span class="hljs-keyword">if</span>(carry == <span class="hljs-number">1</span>)&#123;<br>            cur.next = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ListNode</span>(carry);<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> prev.next;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="3-无重复字符的最大子串"><a href="#3-无重复字符的最大子串" class="headerlink" title="3.无重复字符的最大子串"></a>3.无重复字符的最大子串</h3><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-comment">/*</span><br><span class="hljs-comment">            滑动窗口</span><br><span class="hljs-comment">            使用数据结构为集合，查删速度高于list，通过哈希计算获得</span><br><span class="hljs-comment">            hashmap：散列表，根据键的hashcode存储数据，键唯一，时间复杂度O(1)</span><br><span class="hljs-comment">    */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">lengthOfLongestSubstring</span><span class="hljs-params">(String s)</span> &#123;<br>        <span class="hljs-comment">//特殊情况len=0直接返回</span><br>        <span class="hljs-keyword">if</span>(s.length()==<span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        HashMap&lt;Character,Integer&gt; map = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;Character,Integer&gt;();<br>        <span class="hljs-type">int</span> left=<span class="hljs-number">0</span>; <span class="hljs-comment">//滑动窗口左指针</span><br>        <span class="hljs-type">int</span> maxLen=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;s.length();i++)&#123;<br>            <span class="hljs-keyword">if</span>(map.containsKey(s.charAt(i)))&#123;<br>                <span class="hljs-comment">/*</span><br><span class="hljs-comment">                    当前map中没有重复子母时，left不动；</span><br><span class="hljs-comment">                    当前map有重复字母，left需定位到重复字母后一位；</span><br><span class="hljs-comment">                    但由于后面的更新策略只会更新当前重复字母，前面的没有删除，如abba检测a时之前的a还在。</span><br><span class="hljs-comment">                    所以会存在map不一定表示最小字串，</span><br><span class="hljs-comment">                */</span><br>                left =Math.max(left, map.get(s.charAt(i))+<span class="hljs-number">1</span>); <br>            &#125;<br>            <span class="hljs-comment">//不论重复与否，都会更新s.charAt(i)的位置，但只更新单个字母。</span><br>            map.put(s.charAt(i),i);<br>            <span class="hljs-comment">// 当前滑动窗口可能变小，取历史记录中最大的值</span><br>            maxLen = Math.max(maxLen, i-left+<span class="hljs-number">1</span>);<br>        &#125;<br>        <span class="hljs-keyword">return</span> maxLen;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="4-寻找两个正序数组的中位数"><a href="#4-寻找两个正序数组的中位数" class="headerlink" title="4.寻找两个正序数组的中位数"></a>4.寻找两个正序数组的中位数</h3><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">double</span> <span class="hljs-title function_">findMedianSortedArrays</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums1, <span class="hljs-type">int</span>[] nums2)</span> &#123;<br>        <span class="hljs-comment">/**</span><br><span class="hljs-comment">        	方法一：暴力解法，合并成一个数组，计算得到中位数</span><br><span class="hljs-comment">        */</span><br>        <span class="hljs-type">int</span> <span class="hljs-variable">m</span> <span class="hljs-operator">=</span> nums1.length;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> nums2.length;<br>        <span class="hljs-type">double</span> <span class="hljs-variable">pivot</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">if</span>(m==<span class="hljs-number">0</span>&amp;&amp;n==<span class="hljs-number">0</span>)&#123;<br>            <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;<br>        &#125;<br>        <span class="hljs-keyword">if</span>(m==<span class="hljs-number">0</span>)&#123;<br>            <span class="hljs-keyword">if</span>(n%<span class="hljs-number">2</span>==<span class="hljs-number">0</span>)&#123;<br>                pivot = (nums2[n/<span class="hljs-number">2</span>-<span class="hljs-number">1</span>]+nums2[n/<span class="hljs-number">2</span>])/<span class="hljs-number">2.0</span>;<br>            &#125;<br>            <span class="hljs-keyword">else</span>&#123;<br>                pivot = nums2[n/<span class="hljs-number">2</span>];<br>            &#125;<br>            <span class="hljs-keyword">return</span> pivot;<br>        &#125;<br>        <span class="hljs-keyword">if</span>(n==<span class="hljs-number">0</span>)&#123;<br>            <span class="hljs-keyword">if</span>(m%<span class="hljs-number">2</span>==<span class="hljs-number">0</span>)&#123;<br>                pivot = (nums1[m/<span class="hljs-number">2</span>-<span class="hljs-number">1</span>]+nums1[m/<span class="hljs-number">2</span>])/<span class="hljs-number">2.0</span>;<br>            &#125;<br>            <span class="hljs-keyword">else</span>&#123;<br>                pivot = nums1[m/<span class="hljs-number">2</span>];<br>            &#125;<br>            <span class="hljs-keyword">return</span> pivot;<br>        &#125;<br>        <span class="hljs-type">int</span>[] sumArr = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n+m];<br>        <span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> k=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span>(i&lt;m&amp;&amp;j&lt;n)&#123;<br>            <span class="hljs-keyword">if</span>(nums1[i]&lt;=nums2[j])&#123;<br>                sumArr[k++]=nums1[i++];<br>            &#125;<br>            <span class="hljs-keyword">else</span>&#123;<br>                sumArr[k++]=nums2[j++];<br>            &#125;<br><br>        &#125;<br>        <span class="hljs-keyword">while</span>(i&lt;m) sumArr[k++] = nums1[i++];<br>        <span class="hljs-keyword">while</span>(j&lt;n) sumArr[k++] = nums2[j++];<br><br>        <span class="hljs-keyword">if</span>((n+m)%<span class="hljs-number">2</span>==<span class="hljs-number">0</span>)&#123;<br>            pivot = (sumArr[(n+m)/<span class="hljs-number">2</span>-<span class="hljs-number">1</span>]+sumArr[(n+m)/<span class="hljs-number">2</span>])/<span class="hljs-number">2.0</span>;<br>        &#125;<span class="hljs-keyword">else</span>&#123;<br>            pivot = sumArr[(n+m)/<span class="hljs-number">2</span>];<br>        &#125;<br>        <span class="hljs-keyword">return</span> pivot;<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">double</span> <span class="hljs-title function_">findMedianSortedArrays</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums1, <span class="hljs-type">int</span>[] nums2)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">m</span> <span class="hljs-operator">=</span> nums1.length, n = nums2.length;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">len</span> <span class="hljs-operator">=</span> m + n;<br>        <span class="hljs-keyword">if</span> (len % <span class="hljs-number">2</span> == <span class="hljs-number">1</span>) &#123;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">mid</span> <span class="hljs-operator">=</span> len / <span class="hljs-number">2</span>;<br>            <span class="hljs-keyword">return</span> getKthElement(nums1, nums2, mid + <span class="hljs-number">1</span>);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">mid1</span> <span class="hljs-operator">=</span> len / <span class="hljs-number">2</span> - <span class="hljs-number">1</span>;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">mid2</span> <span class="hljs-operator">=</span> len / <span class="hljs-number">2</span>;<br>            <span class="hljs-keyword">return</span> (getKthElement(nums1, nums2, mid1 + <span class="hljs-number">1</span>) + getKthElement(nums1, nums2, mid2 + <span class="hljs-number">1</span>)) / <span class="hljs-number">2.0</span>;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/* 主要思路：要找到第 k (k&gt;1) 小的元素，那么就取 pivot1 = nums1[k/2-1] 和 pivot2 = nums2[k/2-1] 进行比较</span><br><span class="hljs-comment">     * 这里的 &quot;/&quot; 表示整除</span><br><span class="hljs-comment">     * nums1 中小于等于 pivot1 的元素有 nums1[0 .. k/2-2] 共计 k/2-1 个</span><br><span class="hljs-comment">     * nums2 中小于等于 pivot2 的元素有 nums2[0 .. k/2-2] 共计 k/2-1 个</span><br><span class="hljs-comment">     * 取 pivot = min(pivot1, pivot2)，两个数组中小于等于 pivot 的元素共计不会超过 (k/2-1) + (k/2-1) &lt;= k-2 个</span><br><span class="hljs-comment">     * 这样 pivot 本身最大也只能是第 k-1 小的元素</span><br><span class="hljs-comment">     * 如果 pivot = pivot1，那么 nums1[0 .. k/2-1] 都不可能是第 k 小的元素。把这些元素全部 &quot;删除&quot;，剩下的作为新的 nums1 数组</span><br><span class="hljs-comment">     * 如果 pivot = pivot2，那么 nums2[0 .. k/2-1] 都不可能是第 k 小的元素。把这些元素全部 &quot;删除&quot;，剩下的作为新的 nums2 数组</span><br><span class="hljs-comment">     * 由于 &quot;删除&quot; 了一些元素（这些元素都比第 k 小的元素要小），因此需要修改 k 的值，减去删除的数的个数</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">double</span> <span class="hljs-title function_">getKthElement</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums1, <span class="hljs-type">int</span>[] nums2, <span class="hljs-type">int</span> k)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">m</span> <span class="hljs-operator">=</span> nums1.length, n = nums2.length;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, j = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123;<br>            <span class="hljs-comment">// 边界情况</span><br>            <span class="hljs-keyword">if</span> (i == m) &#123;<br>                <span class="hljs-keyword">return</span> nums2[j + k - <span class="hljs-number">1</span>];<br>            &#125;<br>            <span class="hljs-keyword">if</span> (j == n) &#123;<br>                <span class="hljs-keyword">return</span> nums1[i + k - <span class="hljs-number">1</span>];<br>            &#125;<br>            <span class="hljs-keyword">if</span> (k == <span class="hljs-number">1</span>) &#123;<br>                <span class="hljs-keyword">return</span> Math.min(nums1[i], nums2[j]);<br>            &#125;<br>            <span class="hljs-comment">// 正常情况</span><br>            <span class="hljs-type">int</span> <span class="hljs-variable">half</span> <span class="hljs-operator">=</span> k / <span class="hljs-number">2</span>;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">newi</span> <span class="hljs-operator">=</span> Math.min(i + half, m) - <span class="hljs-number">1</span>;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">newj</span> <span class="hljs-operator">=</span> Math.min(j + half, n) - <span class="hljs-number">1</span>;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">pivot1</span> <span class="hljs-operator">=</span> nums1[newi];<br>            <span class="hljs-type">int</span> <span class="hljs-variable">pivot2</span> <span class="hljs-operator">=</span> nums2[newj];<br>            <span class="hljs-keyword">if</span> (pivot1 &lt;= pivot2) &#123;<br>                <span class="hljs-comment">// 更新 k</span><br>                k -= newi - i + <span class="hljs-number">1</span>;<br>                <span class="hljs-comment">// 舍弃 nums1 部分元素</span><br>                i = newi + <span class="hljs-number">1</span>;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-comment">// 更新 k</span><br>                k -= newj - j + <span class="hljs-number">1</span>;<br>                <span class="hljs-comment">// 舍弃 nums2 部分元素</span><br>                j = newj + <span class="hljs-number">1</span>;<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="6-最长回文子串"><a href="#6-最长回文子串" class="headerlink" title="6.最长回文子串"></a>6.最长回文子串</h3><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">longestPalindrome</span><span class="hljs-params">(String s)</span> &#123;<br>        <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * 暴力解法：遍历数组两遍，每次检查是否是回文串。</span><br><span class="hljs-comment">         * O(n^3); O(1)</span><br><span class="hljs-comment">         */</span><br>         <span class="hljs-type">int</span> <span class="hljs-variable">len</span> <span class="hljs-operator">=</span> s.length();<br>         <span class="hljs-keyword">if</span>(len&lt;<span class="hljs-number">2</span>)&#123;<br>             <span class="hljs-keyword">return</span> s;<br>         &#125;<br>         <span class="hljs-comment">//截取字符串会有一定的性能消耗，等价方式如下</span><br>         <span class="hljs-type">int</span> <span class="hljs-variable">maxLen</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br>         <span class="hljs-type">int</span> <span class="hljs-variable">begin</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>         <span class="hljs-type">char</span>[] charArray = s.toCharArray();<br>        <span class="hljs-comment">//枚举所有长度大于等于2的字串</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>; i&lt;len-<span class="hljs-number">1</span>;i++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=i+<span class="hljs-number">1</span>;j&lt;len;j++)&#123;<br>                <span class="hljs-comment">// 只对长度超过当前最大回文串进行判断</span><br>                <span class="hljs-keyword">if</span>(j-i+<span class="hljs-number">1</span>&gt;maxLen &amp;&amp; validPalindromic(charArray,i,j))&#123;<br>                    maxLen = j-i+<span class="hljs-number">1</span>;<br>                    begin = i;<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> s.substring(begin, begin +maxLen);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">        验证子串[left..right]是否为回文串    </span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">validPalindromic</span><span class="hljs-params">(<span class="hljs-type">char</span>[] charArray, <span class="hljs-type">int</span> left, <span class="hljs-type">int</span> right)</span>&#123;<br>        <span class="hljs-keyword">while</span>(left&lt;right)&#123;<br>            <span class="hljs-keyword">if</span>(charArray[left]!=charArray[right])&#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>            &#125;<br>            left++;<br>            right--;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+]]></content>
+      <tags>
+        <tag>算法</tag>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>考研复习计划</title>
+    <url>/2023/07/03/%E8%80%83%E7%A0%94%E5%A4%8D%E4%B9%A0%E8%AE%A1%E5%88%92/</url>
+    <content><![CDATA[<h1 id="复习指南"><a href="#复习指南" class="headerlink" title="复习指南"></a>复习指南</h1><p>调整复习重心：数学down，专业课keep，政治、英语up</p>
+<ol>
+<li><p>稳住心态，严格作息，持续走动</p>
+</li>
+<li><p>注重效率、少刷手机、中午&amp;晚上多休息</p>
+</li>
+<li><p>期中考试和课程作业认真准备</p>
+</li>
+<li><p>加油，就靠武汉理工大学了，目标分数在370左右：120+110+75+65</p>
+</li>
+</ol>
+<hr>
+<h3 id="【数学】"><a href="#【数学】" class="headerlink" title="【数学】"></a>【数学】</h3><p>    从9月份刚开始的18讲完成剩余二重积分和多元函数微积分章节后，再到660的高数部分完成后，以及1000题的线性代数部分的每章的前10道题；以及中间完成了13-17年的数学真题；总用时截止到今天10月22日；</p>
+<p>    之后的学习计划：主要内容是真题中的内容，重点关注知识遗漏点、易错点和容易得分或常考的题。</p>
+<ol>
+<li><p>真题刷到20年，from 10月26日 to 10月31日；留最后两年的真题检查</p>
+</li>
+<li><p>之后总结试卷中的易错知识点（卷子正面写上123点），按专题再查看一遍；此过程详细到卷子做完之后再具体计划（最长10天，估计可能超过）</p>
+</li>
+<li><p>背诵一些记忆的考点（重要，everyday）</p>
+</li>
+</ol>
+<hr>
+<h3 id="【专业课】"><a href="#【专业课】" class="headerlink" title="【专业课】"></a>【专业课】</h3><p>    专业课的进度一直都算比较慢的，原因就是开始时间太晚了，同时前一个月的学习方法有问题导致后期单日的复习时长都维持在3h以上，目前总复习时间已经超过了数学（番茄钟所记录的）；从暑假前开始到开学后几天完成了408四本书的一轮复习，之后截止到10月22日，已经完成了408的数据结构、计算机组成原理和操作系统的第二轮复习，但ds的第二轮复习是存在问题，之后会根据做题的情况再决定复习方法；</p>
+<p>    之后的复习计划：主要内容是计算机网络的第二轮、真题的部分，大概是从09-22年，重点关注常考的知识点，放弃一些偏僻或不常考的内容；</p>
+<ol>
+<li><p>10月23日-&gt;10月25日，完成计算机网络的第二轮复习（容错26日）</p>
+</li>
+<li><p>之后开始刷真题评估一下，刷完所有的真题（估计得到11月末）</p>
+</li>
+<li><p>每次刷完真题后对挑选重要得知识点rethink一下</p>
+</li>
+</ol>
+<hr>
+<h3 id="【英语】"><a href="#【英语】" class="headerlink" title="【英语】"></a>【英语】</h3><p>        英语的复习从大三下的单词背诵和语法复习，以及暑假期间划水般的英语一真题把基础复习个大概；然后回校后，开始重新复习单词和写英二的卷子；总的来收，阅读方面还是有一些不足，最终目标大概是最多错两个；</p>
+<p>    之后的计划：主要内容是阅读和大小作文（from11月15日。动态调整）</p>
+<ol>
+<li><p>真题往后做，到2021年（一般都是晚上，白天看会单词）</p>
+</li>
+<li><p>之后开始分别集中训练完型填空和新题型</p>
+</li>
+<li><p>查找大小作文有关资料，开始构建作文框架和背诵固定专题</p>
+</li>
+<li><p>重新刷之前的阅读和22年的卷子</p>
+</li>
+</ol>
+<hr>
+<h3 id="【政治】"><a href="#【政治】" class="headerlink" title="【政治】"></a>【政治】</h3><p>    政治的复习是时间最短的，目标分数大概在65-70分之间，之前的主要学习方式看徐涛的课程和做1000题（一开始学习强度较大，所以看视频水时间），后来根据徐涛冲刺笔记刷1000题，截止到10月22日，1000题还是没有刷完，但不算太急</p>
+<p>    之后的计划：集中在冲刺笔记的阅读复习背诵理解、以及1000题马原和史纲部分的重写</p>
+<ol>
+<li><p>每天的背诵笔记内容复习指标，1000题的复习</p>
+</li>
+<li><p>之后出来肖四肖八后开始背诵卷子（预留一定的时间）</p>
+</li>
+<li><p>总体原则就是不要花费过多的时间在政治上，但要重视，每天最基本的时间要保持不变</p>
+</li>
+</ol>
+<hr>
+<h1 id="【最后不到一个月】"><a href="#【最后不到一个月】" class="headerlink" title="【最后不到一个月】"></a>【最后不到一个月】</h1><p>数学：</p>
+<p>【1】</p>
+<ol>
+<li><p>微分方程的综合题</p>
+</li>
+<li><p>多元函数的极值与最值</p>
+</li>
+<li><p>多元复合函数与隐函数求导</p>
+</li>
+<li><p>微分方程的物理应用</p>
+</li>
+<li><p>泰勒公式与应用</p>
+</li>
+<li><p>微分中值定理</p>
+</li>
+</ol>
+<p>【2】</p>
+<ol>
+<li>选填技巧课，还有4堂课</li>
+</ol>
+<p>    线代总共7堂课，听完</p>
+<ol>
+<li><p>明天中午尝试一下，看看效果</p>
+</li>
+<li><p>可以的话可以在中午或晚上听</p>
+</li>
+<li><p>重新看一下1000题上的线代</p>
+</li>
+</ol>
+<p>【3】</p>
+<ol>
+<li><p>重新复习真题上的错题，此阶段与【1】同时进行</p>
+</li>
+<li><p>总结做题方法，此阶段同上</p>
+</li>
+</ol>
+<p>专业课：</p>
+<ol>
+<li>待续</li>
+</ol>
+]]></content>
+  </entry>
+</search>
